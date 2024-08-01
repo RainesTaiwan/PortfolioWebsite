@@ -1,38 +1,63 @@
-// App.vue
-  <template>
-    <div class="container">
-      <PageHeader />
-      <MainContent />
-    </div>
+<template>
+  <div class="app">
+    <PageHeader />
+    <MainContent />
     <SocialIcons />
-  </template>
+  </div>
+</template>
 
-  <script>
-  import PageHeader from './components/PageHeader.vue'
-  import MainContent from './components/MainContent.vue'
-  import SocialIcons from './components/SocialIcons.vue'
+<script>
+import PageHeader from './components/PageHeader.vue'
+import MainContent from './components/MainContent.vue'
+import SocialIcons from './components/SocialIcons.vue'
 
-  export default {
-    name: 'App',
-    components: {
-      PageHeader,
-      MainContent,
-      SocialIcons
-    }
+export default {
+  name: 'App',
+  components: {
+    PageHeader,
+    MainContent,
+    SocialIcons
   }
-  </script>
+}
+</script>
 
-  <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a;
-    color: #ffffff;
-  }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #FFA500;
+  background-color: #000000;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFA500;
+}
+
+@media (max-width: 768px) {
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 95%;
   }
-  </style>
+}
+</style>
