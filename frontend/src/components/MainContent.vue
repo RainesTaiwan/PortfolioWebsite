@@ -23,11 +23,22 @@
       <div class="container">
         <br>
         <h2>My Skills</h2>
-        <ul>
-          <li>Skill 1</li>
-          <li>Skill 2</li>
-          <li>Skill 3</li>
-        </ul>
+        <div class="wrapper">
+          <div v-for="(skill, index) in skills" :key="index" class="item">
+            <div class="top">{{ String(index + 1).padStart(2, '0') }} &lt;{{ skill.tag }}/&gt;</div>
+            <video autoplay loop playsinline class="video">
+              <source :src="skill.videoSrc" type="video/mp4">
+            </video>
+            <div class="title">{{ skill.title }}</div>
+            <div class="content">{{ skill.content }}</div>
+            <a v-if="skill.link" :href="skill.link.url" target="_blank">
+              <button type="button" class="link-btn">
+                <span><span>{{ skill.link.text }}</span></span>
+                <span class="icon material-symbols-outlined">arrow_forward</span>
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -35,10 +46,15 @@
       <div class="container">
         <br>
         <h2>My Projects</h2>
-        <div class="project-grid">
-          <div class="project">Project 1</div>
-          <div class="project">Project 2</div>
-          <div class="project">Project 3</div>
+        <div class="wrapper">
+          <div v-for="(project, index) in projects" :key="index" class="item">
+            <div class="top">{{ String(index + 1).padStart(2, '0') }} &lt;{{ project.tag }}/&gt;</div>
+            <video autoplay loop playsinline class="video">
+              <source :src="project.videoSrc" type="video/mp4">
+            </video>
+            <div class="title">{{ project.title }}</div>
+            <div class="content">{{ project.content }}</div>
+          </div>
         </div>
       </div>
     </section>
@@ -66,7 +82,45 @@ export default {
       profileImage: null,
       name: '',
       email: '',
-      message: ''
+      message: '',
+      skills: [
+        {
+          tag: 'DISCOVER',
+          videoSrc: '/images/01.mp4',
+          title: '📁 探索創意點子',
+          content: '發揮你的想像力，提出與市政相關之創意方案。可將臺北市資料大平台、政府資料開放平臺以及台北通微服務基礎做為開發參考，以增進數位公共服務為目標，碰撞出不同點子想法。',
+          link: {
+            url: 'https://data.taipei/',
+            text: 'Data.taipei'
+          }
+        },
+        {
+          tag: 'MICROSERVICE',
+          videoSrc: '/images/02.mp4',
+          title: '🔍 城市通微服務',
+          content: '運用微服務的優勢，將數位服務組件化，以此提升並完善市政數位服務，增進其彈性與相容程度，來翻轉城市美學。主辦單位會在工作坊詳細說明主題內容。'
+        },
+        {
+          tag: 'OPENSOURCE',
+          videoSrc: '/images/03.mp4',
+          title: '🧑‍💻 開源精神無所不在',
+          content: '不限制資料來源，以開放資料為主，並請備註引用來源，若涉及個資需去識別化。僅限使用開源軟體進行開發，禁用相關商用軟體，違反規定將取消參賽資格。'
+        }
+      ],
+      projects: [
+        {
+          tag: 'DEVELOPMENT',
+          videoSrc: '/images/04.mp4',
+          title: '💥 開發與建置',
+          content: '將團隊的點子想法實做出來，成果需使用在手機上。Flutter開發，並需具備前端(HTML、CSS、JavaScript)、後端(Java)技術能力，可能會使用到Git、Docker、Postman開發工具。'
+        },
+        {
+          tag: 'SHOWCASE',
+          videoSrc: '/images/05.mp4',
+          title: '🙌 現場展示',
+          content: '向所有參賽隊伍及評審委員展示團隊的開發成果，且不得使用形式之簡報呈現。透過展示與實際操作，向大家傳達設計微服務的概念想法。'
+        }
+      ]
     }
   },
   mounted() {
@@ -124,17 +178,65 @@ export default {
   border: 5px solid #FFA500;
 }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.project {
-  background: #1A1A1A;
-  padding: 1rem;
+.item {
+  width: calc(33.33% - 20px);
+  margin-bottom: 40px;
+  background-color: #1A1A1A;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(255, 165, 0, 0.1);
+}
+
+.top {
+  background-color: #FFA500;
+  color: #000000;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px;
+  color: #FFA500;
+}
+
+.content {
+  padding: 0 15px 15px;
+  color: #FFA500;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #FFA500;
+  color: #000000;
+  padding: 10px 15px;
+  border: none;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(255, 165, 0, 0.1);
+  cursor: pointer;
+  margin: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.link-btn:hover {
+  background-color: #FF8C00;
+}
+
+.icon {
+  margin-left: 5px;
 }
 
 form {
@@ -174,6 +276,10 @@ button:hover {
 
   .image-container {
     max-width: 300px;
+  }
+
+  .item {
+    width: 100%;
   }
 }
 </style>
