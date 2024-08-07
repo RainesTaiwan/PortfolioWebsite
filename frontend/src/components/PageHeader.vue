@@ -65,7 +65,7 @@ export default {
 .header {
   background: #1A1A1A;
   color: #FFA500;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -80,7 +80,7 @@ nav {
 }
 
 .logo img {
-  height: 50px;
+  height: 40px;
 }
 
 .nav-menu {
@@ -89,7 +89,7 @@ nav {
 }
 
 .nav-menu li {
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 }
 
 .nav-menu a {
@@ -120,7 +120,7 @@ nav {
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 70px;
+    top: 60px;
     flex-direction: column;
     background: #1A1A1A;
     width: 100%;
