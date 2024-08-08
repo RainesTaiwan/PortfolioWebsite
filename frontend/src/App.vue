@@ -3,11 +3,13 @@
     <PageHeader />
     <MainContent />
     <SocialIcons />
+    <PageFooter />
   </div>
 </template>
 
 <script>
 import PageHeader from './components/PageHeader.vue'
+import PageFooter from './components/PageFooter.vue'
 import MainContent from './components/MainContent.vue'
 import SocialIcons from './components/SocialIcons.vue'
 
@@ -16,7 +18,8 @@ export default {
   components: {
     PageHeader,
     MainContent,
-    SocialIcons
+    SocialIcons,
+    PageFooter
   }
 }
 </script>
