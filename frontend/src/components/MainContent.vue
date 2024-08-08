@@ -2,7 +2,7 @@
   <main class="main-content">
     <section id="home" class="section">
       <div class="container">
-        <br>
+
         <h1>Hi I'm Raines.</h1>
         <p>Professional software development, tailoring reliable solutions to your business needs, turning innovation and efficiency into your competitive edge.</p>
         <div class="image-container">
@@ -13,7 +13,7 @@
 
     <section id="about" class="section">
       <div class="container">
-        <br>
+
         <h2>About Me</h2>
         <p>I am a seasoned full-stack developer and project management expert, specializing in the development, integration, and optimization of automation systems. Over the past 6 years, I have been deeply involved in system transformation projects for large enterprises, covering all stages from system selection and development to implementation and maintenance.</p>
       </div>
@@ -21,7 +21,7 @@
 
     <section id="skills" class="section">
       <div class="container">
-        <br>
+
         <h2>My Skills</h2>
         <div class="wrapper">
           <div v-for="(skill, index) in skills" :key="index" class="item">
@@ -44,7 +44,7 @@
 
     <section id="projects" class="section">
       <div class="container">
-        <br>
+
         <h2>My Projects</h2>
         <div class="wrapper">
           <div v-for="(project, index) in projects" :key="index" class="item">
@@ -61,7 +61,7 @@
 
     <section id="contact" class="section">
       <div class="container">
-        <br>
+
         <h2>Contact Me</h2>
         <form @submit.prevent="submitForm">
           <input type="text" v-model="name" placeholder="Name" required>

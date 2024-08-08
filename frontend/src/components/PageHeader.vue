@@ -120,7 +120,7 @@ nav {
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 60px;
+    top: 52px;
     flex-direction: column;
     background: #1A1A1A;
     width: 100%;
@@ -138,6 +138,16 @@ nav {
 
   .hamburger {
     display: block;
+  }
+}
+
+:global(body) {
+  padding-top: 52px;
+}
+
+@media (max-width: 768px) {
+  :global(body) {
+    padding-top: 52px;
   }
 }
 </style>
