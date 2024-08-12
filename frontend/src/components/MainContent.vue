@@ -85,8 +85,8 @@
         <h2>Contact Me</h2>
         <p>
           Feel free to reach out to me at:
-          <a href="mailto:your.email@example.com" class="email-link">
-            your.email@example.com
+          <a href="mailto:raines.taiwan@gmail.com" class="email-link">
+            raines.taiwan@gmail.com
           </a>
         </p>
       </div>
