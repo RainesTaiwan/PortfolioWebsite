@@ -1,17 +1,17 @@
 <template>
   <div class="app">
-    <PageHeader />
-    <MainContent />
+    <PageHeader :lang="currentLang" @language-changed="handleLanguageChange" />
+    <MainContent :lang="currentLang" />
     <SocialIcons />
-    <PageFooter />
+    <PageFooter :lang="currentLang" />
   </div>
 </template>
 
 <script>
 import PageHeader from './components/PageHeader.vue'
-import PageFooter from './components/PageFooter.vue'
 import MainContent from './components/MainContent.vue'
 import SocialIcons from './components/SocialIcons.vue'
+import PageFooter from './components/PageFooter.vue'
 
 export default {
   name: 'App',
@@ -20,9 +20,29 @@ export default {
     MainContent,
     SocialIcons,
     PageFooter
+  },
+  data() {
+    return {
+      currentLang: this.getInitialLanguage()
+    }
+  },
+  methods: {
+    getInitialLanguage() {
+      const savedLang = localStorage.getItem('language')
+      if (savedLang && ['zh', 'en'].includes(savedLang)) {
+        return savedLang
+      }
+      const browserLang = navigator.language.split('-')[0]
+      return ['zh', 'en'].includes(browserLang) ? browserLang : 'en'
+    },
+    handleLanguageChange(lang) {
+      this.currentLang = lang
+      localStorage.setItem('language', lang)
+    }
   }
 }
 </script>
+
 
 <style>
 * {

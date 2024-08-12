@@ -7,7 +7,10 @@
         </div>
         <ul class="nav-menu" :class="{ 'active': isMenuActive }">
           <li v-for="item in menuItems" :key="item.id">
-            <a :href="'#' + item.id" @click="scrollToSection(item.id)">{{ item.name }}</a>
+            <a :href="'#' + item.id" @click="scrollToSection(item.id)">{{ translations[currentLang][item.id] }}</a>
+          </li>
+          <li>
+            <a href="#" @click.prevent="toggleLanguage">{{ translations[currentLang].language }}</a>
           </li>
         </ul>
         <div class="hamburger" @click="toggleMenu">
@@ -21,8 +24,16 @@
 </template>
 
 <script>
+import translations from '@/locales/translations.js'
+
 export default {
   name: 'PageHeader',
+    props: {
+    lang: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       menuItems: [
@@ -33,7 +44,9 @@ export default {
         { id: 'contact', name: 'Contact' }
       ],
       isMenuActive: false,
-      logoImage: null
+      logoImage: null,
+      currentLang: this.lang,
+      translations: translations
     }
   },
   mounted() {
@@ -56,7 +69,11 @@ export default {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    }
+    },
+    toggleLanguage() {
+      this.currentLang = this.currentLang === 'zh' ? 'en' : 'zh'
+      this.$emit('language-changed', this.currentLang)
+    },
   }
 }
 </script>

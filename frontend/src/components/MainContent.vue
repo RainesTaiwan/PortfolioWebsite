@@ -2,33 +2,45 @@
   <main class="main-content">
     <section id="home" class="section">
       <div class="container">
-
-        <h1>Hi I'm Raines.</h1>
-        <p>Professional software development, tailoring reliable solutions to your business needs, turning innovation and efficiency into your competitive edge.</p>
+        <h1>{{ translations[lang].homeMe }}</h1>
+        <p>{{ translations[lang].homeMeContent }}</p>
         <div class="image-container">
-          <img :src="profileImage" alt="Raines" class="profile-pic">
+          <img
+            :src="profileImage"
+            alt="Raines"
+            class="profile-pic"
+            @error="handleImageError"
+          >
         </div>
       </div>
     </section>
 
     <section id="about" class="section">
       <div class="container">
-
-        <h2>About Me</h2>
-        <p>I am a seasoned full-stack developer and project management expert, specializing in the development, integration, and optimization of automation systems. Over the past 6 years, I have been deeply involved in system transformation projects for large enterprises, covering all stages from system selection and development to implementation and maintenance.</p>
+        <h2>{{ translations[lang].aboutMe }}</h2>
+        <p>{{ translations[lang].aboutMeContent }}</p>
       </div>
     </section>
 
     <section id="skills" class="section">
       <div class="container">
-
         <h2>My Skills</h2>
         <div class="wrapper">
           <div v-for="(skill, index) in skills" :key="index" class="item">
             <div class="top">{{ String(index + 1).padStart(2, '0') }} &lt;{{ skill.tag }}/&gt;</div>
-            <video autoplay loop playsinline class="video">
-              <source :src="skill.videoSrc" type="video/mp4">
-            </video>
+            <template v-if="skill.type === 'video'">
+              <video autoplay loop playsinline class="media">
+                <source :src="skill.src" type="video/mp4">
+              </video>
+            </template>
+            <template v-else-if="skill.type === 'image'">
+              <img
+                :src="skill.src"
+                :alt="skill.title"
+                class="media"
+                @error="handleImageError"
+              >
+            </template>
             <div class="title">{{ skill.title }}</div>
             <div class="content">{{ skill.content }}</div>
             <a v-if="skill.link" :href="skill.link.url" target="_blank">
@@ -44,14 +56,23 @@
 
     <section id="projects" class="section">
       <div class="container">
-
         <h2>My Projects</h2>
         <div class="wrapper">
           <div v-for="(project, index) in projects" :key="index" class="item">
             <div class="top">{{ String(index + 1).padStart(2, '0') }} &lt;{{ project.tag }}/&gt;</div>
-            <video autoplay loop playsinline class="video">
-              <source :src="project.videoSrc" type="video/mp4">
-            </video>
+            <template v-if="project.type === 'video'">
+              <video autoplay loop playsinline class="media">
+                <source :src="project.src" type="video/mp4">
+              </video>
+            </template>
+            <template v-else-if="project.type === 'image'">
+              <img
+                :src="project.src"
+                :alt="project.title"
+                class="media"
+                @error="handleImageError"
+              >
+            </template>
             <div class="title">{{ project.title }}</div>
             <div class="content">{{ project.content }}</div>
           </div>
@@ -61,84 +82,103 @@
 
     <section id="contact" class="section">
       <div class="container">
-
         <h2>Contact Me</h2>
-        <form @submit.prevent="submitForm">
-          <input type="text" v-model="name" placeholder="Name" required>
-          <input type="email" v-model="email" placeholder="Email" required>
-          <textarea v-model="message" placeholder="Message" required></textarea>
-          <button type="submit">Send</button>
-        </form>
+        <p>
+          Feel free to reach out to me at:
+          <a href="mailto:your.email@example.com" class="email-link">
+            your.email@example.com
+          </a>
+        </p>
       </div>
     </section>
   </main>
 </template>
 
 <script>
+import translations from '@/locales/translations.js'
+
 export default {
   name: 'MainContent',
+  props: ['lang'],
   data() {
     return {
+      translations: translations,
       profileImage: null,
-      name: '',
-      email: '',
-      message: '',
+      placeholderImage: require('@/assets/placeholder.png'),
+      projects: [
+        {
+          tag: 'WMS',
+          src: '/assets/WMS1-1.png',
+          type: 'image',
+          title: '📦 Warehouse Management System',
+          content: '優化倉庫的各項流程，提高效率，降低成本，並確保貨物以最有效的方式在倉庫中流動。'
+        },
+        {
+          tag: 'PMRS',
+          src: '/assets/PRMS1-1.png',
+          type: 'image',
+          title: '📊 Project Management and Reporting System',
+          content: '監控項目進度，並生成和收集報告，以便有效地管理項目資源、時間和成本，同時提供清晰的項目狀態和績效信息。'
+        },
+        {
+          tag: 'STS',
+          src: '/assets/STS1-1.png',
+          type: 'image',
+          title: '🧪 Specimen Tracking System',
+          content: '追蹤每個樣本的位置和狀態，提高工作流程的效率，並確保樣本的完整性和可靠性。'
+        },
+      ],
       skills: [
         {
-          tag: 'DISCOVER',
-          videoSrc: '/images/01.mp4',
-          title: '📁 探索創意點子',
-          content: '發揮你的想像力，提出與市政相關之創意方案。可將臺北市資料大平台、政府資料開放平臺以及台北通微服務基礎做為開發參考，以增進數位公共服務為目標，碰撞出不同點子想法。',
+          tag: 'Web Development',
+          src: '/assets/WEB1-1.png',
+          type: 'image',
+          title: '🌐 Frontend、Backend、SQL',
+          content: ' HTML/CSS、API \n JavaScript、Python、C# \n React、Django、ASP.NET \n SSRS、PowerBi、Git',
           link: {
-            url: 'https://data.taipei/',
-            text: 'Data.taipei'
+            url: 'https://github.com/RainesTaiwan',
+            text: 'github'
           }
         },
         {
-          tag: 'MICROSERVICE',
-          videoSrc: '/images/02.mp4',
-          title: '🔍 城市通微服務',
-          content: '運用微服務的優勢，將數位服務組件化，以此提升並完善市政數位服務，增進其彈性與相容程度，來翻轉城市美學。主辦單位會在工作坊詳細說明主題內容。'
+          tag: 'Cloud Computing',
+          src: '/assets/elastic1-1.png',
+          type: 'image',
+          title: '☁️ AWS、Azure、Docker',
+          content: ' Elasticsearch、Prometheus、Grafana、Lens、yaml、GitlabCI/CD \n MySQL、PostgreSQL、Microsoft SQL Server、MongoDB \n EC2、S3、App Service'
         },
         {
-          tag: 'OPENSOURCE',
-          videoSrc: '/images/03.mp4',
-          title: '🧑‍💻 開源精神無所不在',
-          content: '不限制資料來源，以開放資料為主，並請備註引用來源，若涉及個資需去識別化。僅限使用開源軟體進行開發，禁用相關商用軟體，違反規定將取消參賽資格。'
+          tag: 'Industrial Automation',
+          src: '/assets/CAPS1-1.png',
+          type: 'image',
+          title: '🏭 CAPS、SORTER',
+          content: ' Electronic Label Solution \n Automatic Sorting Machine Solution \n Automatic Labeling Machine Solution \n Automatic Weighing Machine Solution \n AGV Solution'
         }
       ],
-      projects: [
-        {
-          tag: 'DEVELOPMENT',
-          videoSrc: '/images/04.mp4',
-          title: '💥 開發與建置',
-          content: '將團隊的點子想法實做出來，成果需使用在手機上。Flutter開發，並需具備前端(HTML、CSS、JavaScript)、後端(Java)技術能力，可能會使用到Git、Docker、Postman開發工具。'
-        },
-        {
-          tag: 'SHOWCASE',
-          videoSrc: '/images/05.mp4',
-          title: '🙌 現場展示',
-          content: '向所有參賽隊伍及評審委員展示團隊的開發成果，且不得使用形式之簡報呈現。透過展示與實際操作，向大家傳達設計微服務的概念想法。'
-        }
-      ]
     }
   },
   mounted() {
-    import('@/assets/main.png')
-      .then(module => {
-        this.profileImage = module.default
-      })
-      .catch(error => {
-        console.error('Error loading profile image:', error)
-        this.profileImage = 'https://via.placeholder.com/400x300?text=Profile+Image+Not+Found'
-      })
+    this.loadProfileImage()
   },
   methods: {
-    submitForm() {
-      console.log('Form submitted:', { name: this.name, email: this.email, message: this.message })
-      this.name = ''
-      this.email = ''
-      this.message = ''
+    loadProfileImage() {
+      import('@/assets/main.png')
+        .then(module => {
+          this.profileImage = module.default
+        })
+        .catch(error => {
+          console.error('Error loading profile image:', error)
+          this.handleImageError()
+        })
+    },
+    handleImageError(event) {
+      // 如果是 event 對象，則表示是由 img 標籤觸發的錯誤
+      if (event && event.target) {
+        event.target.src = this.placeholderImage
+      } else {
+        // 如果不是 event 對象，則是 profile 圖片加載失敗
+        this.profileImage = this.placeholderImage
+      }
     }
   }
 }
@@ -146,19 +186,19 @@ export default {
 
 <style scoped>
 .section p {
-  font-size: 28px;
+  font-size: 18px;
 }
 
 .section h1 {
-  font-size: 36px;
+  font-size: 32px;
 }
 
 .section h2 {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 .section {
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 .section:nth-child(even) {
@@ -167,7 +207,7 @@ export default {
 
 .image-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   margin: 2rem auto;
 }
 
@@ -200,14 +240,14 @@ export default {
   font-weight: bold;
 }
 
-.video {
+.media {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   padding: 15px;
   color: #FFA500;
@@ -216,6 +256,7 @@ export default {
 .content {
   padding: 0 15px 15px;
   color: #FFA500;
+  white-space: pre-wrap;
 }
 
 .link-btn {
@@ -239,39 +280,39 @@ export default {
   margin-left: 5px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-input, textarea {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #FFA500;
-  border-radius: 4px;
-  background-color: #1A1A1A;
+.email-link {
   color: #FFA500;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-button {
-  padding: 0.5rem;
-  background-color: #FFA500;
-  color: #000000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.email-link:hover {
+  color: #FF8C00;
+  text-decoration: underline;
 }
 
-button:hover {
-  background-color: #FF8C00;
+/* 響應式設計改進 */
+@media (max-width: 1200px) {
+  .item {
+    width: calc(50% - 20px);
+  }
 }
 
 @media (max-width: 768px) {
   .section {
     padding: 2rem 0;
+  }
+
+  .section p {
+    font-size: 16px;
+  }
+
+  .section h1 {
+    font-size: 28px;
+  }
+
+  .section h2 {
+    font-size: 24px;
   }
 
   .image-container {
@@ -280,6 +321,28 @@ button:hover {
 
   .item {
     width: 100%;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section p {
+    font-size: 14px;
+  }
+
+  .section h1 {
+    font-size: 24px;
+  }
+
+  .section h2 {
+    font-size: 20px;
+  }
+
+  .image-container {
+    max-width: 250px;
   }
 }
 </style>
