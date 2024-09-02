@@ -111,21 +111,21 @@ export default {
           src: '/assets/WMS1-1.png',
           type: 'image',
           title: '📦 Warehouse Management System',
-          content: '優化倉庫的各項流程，提高效率，降低成本，並確保貨物以最有效的方式在倉庫中流動。'
+          content: 'I have developed backend API services using the ASP.NET MVC framework to integrate ERP (Enterprise Resource Planning) systems with WMS (Warehouse Management Systems). I provide API services for WMS to drive subsystems such as AGVs (Automated Guided Vehicles). Additionally, I offer comprehensive WMS solutions to clients, catering to various warehouse management needs.'
         },
         {
           tag: 'PMRS',
           src: '/assets/PRMS1-1.png',
           type: 'image',
           title: '📊 Project Management and Reporting System',
-          content: '監控項目進度，並生成和收集報告，以便有效地管理項目資源、時間和成本，同時提供清晰的項目狀態和績效信息。'
+          content: 'I am proficient in developing Project Management and Reporting Systems using Node.js, Express, and the MERN (MongoDB, Express, React, Node.js) stack. I have successfully integrated Amazon EC2 and S3 solutions to deliver efficient project management and reporting services to clients.'
         },
         {
           tag: 'STS',
           src: '/assets/STS1-1.png',
           type: 'image',
           title: '🧪 Specimen Tracking System',
-          content: '追蹤每個樣本的位置和狀態，提高工作流程的效率，並確保樣本的完整性和可靠性。'
+          content: 'I have developed a Specimen Tracking System using a decoupled architecture, with Vue 3 as the front-end framework, ASP.NET as the back-end technology, and Microsoft SQL Server as the database management system. The back-end server provides RESTful APIs for seamless integration with the front-end application. This system offers clients a comprehensive solution for specimen tracking and reporting, enhancing laboratory workflow efficiency and data management.'
         },
       ],
       skills: [
